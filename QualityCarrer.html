@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QualityCareer Financial Services Onboarding</title>
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color:gray;
+    text-align: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.logo {
+    width: 100%;
+    max-width: 250px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #007BFF;
+    width: 75%;
+    font-size: 30px;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: black;
+}
+
+</style>
+<body>
+    <div class="container">
+        <img src="sunnuArtboard_3[1].png" alt="Quality Career Logo" class="logo">
+    </div>
+    <div class="container">
+        <h2>QualityCareer Financial Services Onboarding</h2>
+        <p>Welcome! Join QualityCareer to offer financial services, including credit cards, zero balance accounts, loans, and Demat accounts, to your customers.</p>
+
+        <form id="onboardingForm">
+            <h3>Email: *</h3>
+            <input type="email" name="email" required>
+
+            <h3>Business Name: *</h3>
+            <input type="text" name="business_name" required>
+
+            <h3>Owner’s Name: *</h3>
+            <input type="text" name="owner_name" required>
+
+            <h3>Owner’s Email Address: </h3>
+            <input type="email" name="owner_email" required>
+
+            <h3>Contact Number: </h3>
+            <input type="tel" name="contact_number" required>
+
+            <h3>Business Address: </h3>
+            <textarea name="business_address" required></textarea>
+
+            <h3>Type of Center:</h3>
+            <select name="center_type" required>
+                <option value="Internet Cafe">Internet Cafe</option>
+                <option value="Mee Seva">Mee Seva</option>
+                <option value="CSC Center">CSC Center</option>
+                <option value="Kirana Store">Kirana Store</option>
+                <option value="Marketing Agent">Marketing Agent</option>
+                <option value="Other">Other</option>
+            </select>
+            <h3>Select Financial Products to Offer: *</h3>
+            <div class="checkbox-group">
+                <input type="checkbox" name="financial_products" value="Credit Cards"> Credit Cards
+                <input type="checkbox" name="financial_products" value="Zero Balance Accounts"> Zero Balance Accounts
+                <input type="checkbox" name="financial_products" value="Loans"> Loans
+                <input type="checkbox" name="financial_products" value="Demat Accounts"> Demat Accounts
+                <input type="checkbox" name="financial_products" value="Shops/Internet Cafes/Mee Seva"> Shops/Internet Cafes/Mee Seva
+            </div>
+   <br>     
+            <button type="submit">Submit</button>
+        </form>
+
+        <p id="responseMessage"></p>
+    </div>
+
+    <script src="QualityCarrer.js">
+        document.getElementById("onboardingForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    var formData = new FormData(event.target);
+    var object = {};
+    formData.forEach((value, key) => { object[key] = value; });
+
+    fetch('https://docs.google.com/spreadsheets/d/1zjCXCJnL9_dkUJJsyc-an8Uv_uChwTvX0X9eAyNiKNQ/edit?gid=195191940#gid=195191940', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify(object),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => {
+        document.getElementById("responseMessage").innerText = "Form submitted successfully!";
+        event.target.reset();
+    }).catch(error => {
+        document.getElementById("responseMessage").innerText = "Error submitting form.";
+    });
+});
+
+    </script>
+</body>
+</html>
